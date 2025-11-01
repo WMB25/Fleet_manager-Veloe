@@ -1,6 +1,5 @@
 package com.fleet_manager.veloe.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,8 +28,8 @@ public class Vehicle {
     @NotNull(message = "Tipo do Veiculo é obrigatório")
     private VehicleType type;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "vehicle_owner", joinColumns = @JoinColumn(name = "vehicle_id"), inverseJoinColumns = @JoinColumn(name = "owner_id"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_owner")
     private Customer owner;
 
     public Vehicle() {}
