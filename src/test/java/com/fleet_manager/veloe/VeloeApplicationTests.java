@@ -10,6 +10,7 @@ class VeloeApplicationTests {
 
 	@Test
 	void contextLoads() {
+        // Implementable Test
 	}
 
 }
