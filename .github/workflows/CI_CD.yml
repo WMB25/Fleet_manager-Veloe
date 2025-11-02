@@ -90,7 +90,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: build imagem
-        run: docker build -t ${{ vars.DOCKER_USERNAME }}/Fleet_manager-Veloe:latest .
+        run: docker build -t ${{ vars.DOCKER_USERNAME }}/fleet-manager-veloe:latest .
 
       - name: Push para DockerHub
-        run: docker push ${{ vars.DOCKER_USERNAME }}/Fleet_manager-Veloe:latest
+        run: docker push ${{ vars.DOCKER_USERNAME }}/fleet-manager-veloe:latest
