@@ -10,7 +10,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Optional<Customer> findByLicenseDrive(String licenseDrive);
 
-    boolean existByDocument(String document);
+    boolean existsByDocument(String document);
 
     Optional<Customer> findByName(String name);
 }

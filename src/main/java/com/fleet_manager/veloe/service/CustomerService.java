@@ -17,7 +17,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     public Customer createCustomer(Customer owner){
-        if(customerRepository.existByDocument(owner.getDocument())){
+        if(customerRepository.existsByDocument(owner.getDocument())){
             throw new IllegalArgumentException("Cliente já cadastrado com este documento: " + owner.getDocument());
         }
 
@@ -42,7 +42,7 @@ public class CustomerService {
     public Customer updateCustomer(Long id, @NotNull Customer customerDetails){
         Customer owner = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
 
-        if(!owner.getDocument().equals(customerDetails.getDocument()) && customerRepository.existByDocument(customerDetails.getDocument())){
+        if(!owner.getDocument().equals(customerDetails.getDocument()) && customerRepository.existsByDocument(customerDetails.getDocument())){
             throw new IllegalArgumentException("Já existe um cliente cadastrado co este documento: " + customerDetails.getDocument());
         }
 
