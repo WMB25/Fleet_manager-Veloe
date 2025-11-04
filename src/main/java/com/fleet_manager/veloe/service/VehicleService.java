@@ -51,7 +51,7 @@ public class VehicleService {
     }
 
     public List<Vehicle> findByOwnerId(@NotNull Long ownerId) {
-        return vehicleRepository.findByOwnerID(ownerId);
+        return vehicleRepository.findByOwnerId(ownerId);
     }
 
     public Vehicle updateVehicle(@NotNull Long id, @NotNull VehicleRequest request) {
