@@ -22,7 +22,7 @@ public class VehicleController {
         try{
             Vehicle vehicle = vehicleService.createVehicle(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
-        } catch (IllegalAccessError e){
+        } catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

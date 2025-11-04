@@ -1,9 +1,9 @@
-INSERT INTO customers (id, name, document, email, phone) VALUES
+INSERT INTO customers (id, Name, Document, email, phone) VALUES
 (1, 'joão Silva', '13684603281', 'joaosilva@gmail.com', '(11)95672411'),
 (2, 'Mario toledo', '12454378905', 'mariotoledo@hotmail.com', '(11)963214512'),
 (3, 'Mario Silva', '76544231212', 'mariosilva@outlook.com', '(11)974323221');
 
-INSERT INTO vehicles (id, brand, model, license_plate, type, owner_id) VALUES
+INSERT INTO vehicles (id, Brand, Model, Plate, type, vehicle_owner) VALUES
 (1, 'Toyota', 'Corolla', 'ABC1234', 'CARRO', 1),
 (2, 'Honda', 'Civic', 'DEF5678', 'CARRO', 1),
 (3, 'Ford', 'Ranger', 'GHI9012', 'CAMINHAO', 2),
