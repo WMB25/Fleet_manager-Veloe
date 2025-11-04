@@ -22,7 +22,7 @@ public class VehicleService {
     private CustomerRepository customerRepository;
 
     public Vehicle createVehicle(VehicleRequest request){
-        if(vehicleRepository.existByLicensePlate(request.getLicensePlate())){
+        if(vehicleRepository.existsByLicensePlate(request.getLicensePlate())){
             throw new IllegalArgumentException("Já existe um veiculo com esta placa: " + request.getLicensePlate());
         }
         Customer owner = customerRepository.findById(request.getOwnerID())
@@ -57,7 +57,7 @@ public class VehicleService {
     public Vehicle updateVehicle(@NotNull Long id, @NotNull VehicleRequest request) {
         Vehicle existingVehicle = vehicleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veiculo não encontrado com esta ID: " + id));
 
-        if(!existingVehicle.getLicensePlate().equals(request.getLicensePlate()) && vehicleRepository.existByLicensePlate(request.getLicensePlate())){
+        if(!existingVehicle.getLicensePlate().equals(request.getLicensePlate()) && vehicleRepository.existsByLicensePlate(request.getLicensePlate())){
             throw new IllegalArgumentException("Já existe um veiculo cadastrado com esta placa: " + request.getLicensePlate());
         }
 

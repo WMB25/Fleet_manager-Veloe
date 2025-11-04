@@ -15,7 +15,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     List<Vehicle> findByOwnerID(Long ownerID);
 
-    boolean existByLicensePlate(String licensePlate);
+    boolean existsByLicensePlate(String licensePlate);
 
     @Query("SELECT v FROM Vehicle v WHERE v.customer.id = :customerId")
     List<Vehicle> findVehiclesByCustomer(@Param("customerId") Long customerId);
