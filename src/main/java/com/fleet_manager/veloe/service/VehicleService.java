@@ -25,7 +25,8 @@ public class VehicleService {
         if(vehicleRepository.existByLicensePlate(request.getLicensePlate())){
             throw new IllegalArgumentException("Já existe um veiculo com esta placa: " + request.getLicensePlate());
         }
-        Customer owner = customerRepository.findByLicenseDrive(request.getLicensePlate()).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com este documento: " + request.getOwnerID()));
+        Customer owner = customerRepository.findById(request.getOwnerID())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com este documento: " + request.getOwnerID()));
 
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(request.getBrand());

@@ -8,7 +8,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Optional<Customer> findByLicenseDrive(String licenseDrive);
+    Optional<Customer> findByDocument(String document);
 
     boolean existsByDocument(String document);
 

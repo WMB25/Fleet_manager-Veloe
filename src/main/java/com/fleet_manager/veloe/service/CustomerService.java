@@ -36,7 +36,7 @@ public class CustomerService {
 
     @Transactional
     public Optional<Customer> findByDocument(String document){
-        return customerRepository.findByLicenseDrive(document);
+        return customerRepository.findByDocument(document);
     }
 
     public Customer updateCustomer(Long id, @NotNull Customer customerDetails){
