@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdb:postgresql://localhost:5432/fleet_manager
+    url: jdbc:postgresql://localhost:5432/fleet_manager
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -11,7 +11,9 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dealect: org.hibernate.dialect.PostgresSQLDialect
+        dialect: org.hibernate.dialect.PostgresSQLDialect
+
+    defer-datasource-initialization: true
 
   sql:
     init:
