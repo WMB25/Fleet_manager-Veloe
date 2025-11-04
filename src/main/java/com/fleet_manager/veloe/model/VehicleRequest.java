@@ -17,7 +17,7 @@ public class VehicleRequest {
     private VehicleType type;
 
     @NotNull(message = "ID do cliente é obrigatoeio!")
-    private Long ownerID;
+    private Long ownerId;
 
     public String getModel() { return model; }
     public void setModel(String model) { this.model = model; }
@@ -31,6 +31,6 @@ public class VehicleRequest {
     public VehicleType getType() { return type; }
     public void setType(VehicleType type) { this.type = type; }
 
-    public Long getOwnerID() { return ownerID; }
-    public void setOwnerID(Long ownerID) { this.ownerID = ownerID; }
+    public Long getOwnerID() { return ownerId; }
+    public void setOwnerID(Long ownerID) { this.ownerId = ownerID; }
 }
