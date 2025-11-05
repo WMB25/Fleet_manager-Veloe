@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "vehicles")
 public class Vehicle {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

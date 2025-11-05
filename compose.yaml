@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     container_name: fleet_manager-Veloe
@@ -15,32 +13,32 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
       - spring.cloud.config.enabled=false
 
-#    depends_on:
-#      - db
+    depends_on:
+      - db
 
     networks:
       - fleetnet
 
-#  db:
-#    image: postgres:15
-#
-#    container_name: postgres-fleet
-#
-#    restart: always
-#
-#    environment:
-#      POSTGRES_USER: Admin
-#      POSTGRES_PASSWORD: Admin
-#      POSTGRES_DB: fleetdb
-#
-#    ports:
-#      - "5432:5432"
-#
-#    volumes:
-#      - db_data:/var/lib/postgresql/data
-#
-#    networks:
-#      - fleetnet
+  db:
+    image: postgres:15
+
+    container_name: postgres-fleet
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: Admin
+      POSTGRES_PASSWORD: Admin
+      POSTGRES_DB: fleetdb
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+    networks:
+      - fleetnet
 
 networks:
   fleetnet:
