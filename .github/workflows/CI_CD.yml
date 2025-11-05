@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "main"
-      - "develop"
+      - "develop/**"
       - "feature"
     pull_request:
       branches:
@@ -60,13 +60,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configurar JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-
+          cache: 'maven'
+        
       - name: Análise no Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

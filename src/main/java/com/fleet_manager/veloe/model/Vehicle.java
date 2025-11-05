@@ -55,4 +55,12 @@ public class Vehicle {
 
     public Customer getOwner() { return owner; }
     public void setOwner(Customer owner) { this.owner = owner; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
