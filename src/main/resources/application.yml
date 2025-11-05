@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/fleet_manager
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/fleetdb
+    username: Admin
+    password: Admin
+    driver-class-name: org.postgresql.  Driver
 
   jpa:
     hibernate:
