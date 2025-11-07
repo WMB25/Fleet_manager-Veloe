@@ -6,7 +6,7 @@ import com.fleet_manager.veloe.model.VehicleRequest;
 import com.fleet_manager.veloe.repository.CustomerRepository;
 import com.fleet_manager.veloe.repository.VehicleRepository;
 import jakarta.transaction.Transactional;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,17 +22,20 @@ public class VehicleService {
     private CustomerRepository customerRepository;
 
     public Vehicle createVehicle(VehicleRequest request){
-        if(vehicleRepository.existsByLicensePlate(request.getLicensePlate())){
-            throw new IllegalArgumentException("Já existe um veiculo com esta placa: " + request.getLicensePlate());
+        String plate = request.getLicensePlate().toUpperCase();
+        Long customerId = request.getCustomerId();
+
+        if(vehicleRepository.existsByLicensePlate(plate)){
+            throw new IllegalArgumentException("Já existe um veículo com a placa: " + plate);
         }
-        Customer owner = customerRepository.findById(request.getOwnerID())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com este documento: " + request.getOwnerID()));
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com documento: " + request.getCustomerId()));
 
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(request.getBrand());
         vehicle.setModel(request.getModel());
-        vehicle.setLicensePlate(request.getLicensePlate());
-        vehicle.setOwner(owner);
+        vehicle.setLicensePlate(plate);
+        vehicle.setCustomer(customer);
         vehicle.setType(request.getType());
 
         return vehicleRepository.save(vehicle);
@@ -50,40 +53,41 @@ public class VehicleService {
         return vehicleRepository.findByLicensePlate(plate.toUpperCase());
     }
 
-    public List<Vehicle> findByOwnerId(@NotNull Long ownerId) {
-        return vehicleRepository.findByOwnerId(ownerId);
+    public List<Vehicle> findByCustomerId(@NotNull Long customerId) {
+        return vehicleRepository.findByCustomerId(customerId);
     }
 
     public Vehicle updateVehicle(@NotNull Long id, @NotNull VehicleRequest request) {
-        Vehicle existingVehicle = vehicleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veiculo não encontrado com esta ID: " + id));
+        Vehicle existingVehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Veículo não encontrado com ID: " + id));
 
         if(!existingVehicle.getLicensePlate().equals(request.getLicensePlate()) && vehicleRepository.existsByLicensePlate(request.getLicensePlate())){
-            throw new IllegalArgumentException("Já existe um veiculo cadastrado com esta placa: " + request.getLicensePlate());
+            throw new IllegalArgumentException("Já existe um veículo cadastrado com placa: " + request.getLicensePlate());
         }
 
-        Customer owner = existingVehicle.getOwner();
-        if(!existingVehicle.getOwner().getId().equals(request.getOwnerID())){
-            owner =  customerRepository.findById(request.getOwnerID()).orElseThrow(() -> new IllegalArgumentException("Clente não encontrado com ID: " + request.getOwnerID()));
+        Customer customer = existingVehicle.getCustomer();
+        if(!existingVehicle.getCustomer().getId().equals(request.getCustomerId())){
+            customer =  customerRepository.findById(request.getCustomerId()).orElseThrow(() -> new IllegalArgumentException("Clente não encontrado com ID: " + request.getCustomerId()));
         }
 
         existingVehicle.setBrand(request.getBrand());
         existingVehicle.setModel(request.getModel());
         existingVehicle.setType(request.getType());
         existingVehicle.setLicensePlate(request.getLicensePlate().toUpperCase());
-        existingVehicle.setOwner(owner);
+        existingVehicle.setCustomer(customer);
 
         return vehicleRepository.save(existingVehicle);
     }
 
     public void deleteVehicle(@NotNull Long id) {
         if(!vehicleRepository.existsById(id)){
-            throw new IllegalArgumentException("Veiculo não encontrado com ID: " + id);
+            throw new IllegalArgumentException("Veículo não encontrado com ID: " + id);
         }
 
         vehicleRepository.deleteById(id);
     }
 
-    public Long countVehicleByOwner(@NotNull Long ownerId){
-        return vehicleRepository.countByCustomerId(ownerId);
+    public Long countVehicleByCustomer(@NotNull Long customerId){
+        return vehicleRepository.countByCustomerId(customerId);
     }
 }

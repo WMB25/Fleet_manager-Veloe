@@ -37,7 +37,7 @@ class VehicleControllerTest {
         request.setModel("Corolla");
         request.setLicensePlate("ABC1234");
         request.setType(VehicleType.CAR);
-        request.setOwnerID(1L);
+        request.setCustomerId(1L);
 
         Vehicle response = new Vehicle();
         response.setId(1L);

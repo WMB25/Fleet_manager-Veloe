@@ -3,8 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/fleetdb
     username: Admin
     password: Admin
-    driver-class-name: org.postgresql.  Driver
-
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -12,27 +11,25 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
     defer-datasource-initialization: true
 
   sql:
     init:
       mode: always
-
   server:
     port: 8080
     servlet:
       context-path: /fleet-manager
 
-  springdoc:
-    api-docs:
-      path: /api-docs
-    swagger-ui:
-      path: /swagger-ui.html
-      operations-sorter: method
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
 
   logging:
     level:
       com.veloe.fleet: DEBUG
       org.hibernate.SQL: DEBUG
-      org.hibernate.type.descriptor.sql.BasicBlinder: TRACE
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE

@@ -4,20 +4,20 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class VehicleRequest {
-    @NotBlank(message = "Modelo é obrigatorio!")
+    @NotBlank(message = "Modelo é obrigatório!")
     private String model;
 
-    @NotBlank(message = "Maeca é obrigatorio!")
+    @NotBlank(message = "Marca é obrigatório!")
     private String brand;
 
-    @NotBlank(message = "Placa é obrigatorio!")
+    @NotBlank(message = "Placa é obrigatório!")
     private String licensePlate;
 
-    @NotNull(message = "Tipo do veiculo é obrigatoeio!")
+    @NotNull(message = "Tipo do veículo é obrigatório!")
     private VehicleType type;
 
-    @NotNull(message = "ID do cliente é obrigatoeio!")
-    private Long ownerId;
+    @NotNull(message = "ID do cliente é obrigatório!")
+    private Long customerId;
 
     public String getModel() { return model; }
     public void setModel(String model) { this.model = model; }
@@ -31,6 +31,6 @@ public class VehicleRequest {
     public VehicleType getType() { return type; }
     public void setType(VehicleType type) { this.type = type; }
 
-    public Long getOwnerID() { return ownerId; }
-    public void setOwnerID(Long ownerID) { this.ownerId = ownerID; }
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
 }

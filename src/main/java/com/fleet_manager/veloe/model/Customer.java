@@ -1,6 +1,7 @@
 package com.fleet_manager.veloe.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,14 +13,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     @NotBlank(message = "Nome é obrigatório!")
     private String name;
 
     @NotNull(message = "Documento é obrigatório!")
-    @Column(name = "Document", nullable = false)
+    @Column(name = "document", nullable = false)
     private String document;
 
+    @Email(message = "Adicione um email válido!")
     private String email;
     private String phone;
 

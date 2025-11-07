@@ -32,13 +32,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getOwnerById(@PathVariable Long id){
-        Optional<Customer> owner = customerService.findById(id);
-        return owner.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
+        Optional<Customer> customer = customerService.findById(id);
+        return customer.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/documento/{document}")
-    public ResponseEntity<Customer> getOwnerByDocument(@PathVariable String document){
+    public ResponseEntity<Customer> getCustomerByDocument(@PathVariable String document){
         Optional<Customer> customer = customerService.findByDocument(document);
         return customer.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }

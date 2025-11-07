@@ -41,14 +41,14 @@ public class VehicleServiceTest {
         request.setModel("Corolla");
         request.setLicensePlate("ABC1234");
         request.setType(VehicleType.CAR);
-        request.setOwnerID(1L);
+        request.setCustomerId(1L);
 
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setName("João Silva");
 
         Vehicle expectedVehicle = new Vehicle();
-        expectedVehicle.setOwner(customer);
+        expectedVehicle.setCustomer(customer);
         expectedVehicle.setLicensePlate("ABC1234");
         expectedVehicle.setBrand("Toyota");
         expectedVehicle.setModel("Corolla");
@@ -62,7 +62,7 @@ public class VehicleServiceTest {
 
         assertNotNull(result);
         assertEquals("ABC1234", result.getLicensePlate());
-        assertEquals(customer.getName(), result.getOwner().getName());
+        assertEquals(customer.getName(), result.getCustomer().getName());
 
         verify(vehicleRepository, times(1)).existsByLicensePlate("ABC1234");
         verify(customerRepository, times(1)).findById(1L);
@@ -73,7 +73,7 @@ public class VehicleServiceTest {
     void shouldThrowExceptionWhenLicensePlateExists(){
         VehicleRequest request = new VehicleRequest();
         request.setLicensePlate("ABC1234");
-        request.setOwnerID(1L);
+        request.setCustomerId(1L);
 
         when(vehicleRepository.existsByLicensePlate("ABC1234")).thenReturn(true);
 
@@ -117,10 +117,10 @@ public class VehicleServiceTest {
 
     // Teste Adicional para Cobrir a Exceção de Cliente Não Encontrado
     @Test
-    void shouldThrowExceptionWhenOwnerNotFound(){
+    void shouldThrowExceptionWhenCustomerNotFound(){
         VehicleRequest request = new VehicleRequest();
         request.setLicensePlate("XYZ9876");
-        request.setOwnerID(99L); // ID que não existe
+        request.setCustomerId(99L); // ID que não existe
 
         when(vehicleRepository.existsByLicensePlate(anyString())).thenReturn(false);
         when(customerRepository.findById(99L)).thenReturn(Optional.empty());

@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - "main"
-      - "develop/**"
-      - "feature"
+      - "develop"
+      - "feature/**"
     pull_request:
       branches:
         - "main"
@@ -45,11 +45,12 @@ jobs:
       - name: Compilar Projeto
         run: mvn clean compile -DskipTests
 
-      - name: Execultar testes
+      - name: Executar testes
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/fleetdb
           SPRING_DATASOURCE_USERNAME: Admin
           SPRING_DATASOURCE_PASSWORD: Admin
+          SPRING_PROFILES_ACTIVE: test
         run: mvn test
 
   sonar:
@@ -83,7 +84,7 @@ jobs:
   docker:
     name: Build e push imagem Docker
     runs-on: ubuntu-latest
-    needs: sonar
+    needs: [build, sonar]
     if: github.ref == 'refs/heads/main'
 
     steps:

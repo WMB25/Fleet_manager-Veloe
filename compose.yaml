@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: fleet_manager-Veloe
+    container_name: fleet_manager_Veloe
 
     build:
       context: .
@@ -10,8 +10,8 @@ services:
       - "8080:8080"
 
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - spring.cloud.config.enabled=false
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/fleetdb
 
     depends_on:
       - db
@@ -20,9 +20,9 @@ services:
       - fleetnet
 
   db:
-    image: postgres:15
+    image: postgres:15-alpine
 
-    container_name: postgres-fleet
+    container_name: postgres_fleet
 
     restart: always
 
