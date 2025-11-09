@@ -78,7 +78,7 @@ class VehicleServiceTest {
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> vehicleService.createVehicle(request));
 
-        assertEquals("Já existe um veículo com esta placa: ABC1234", exception.getMessage());
+        assertEquals("Já existe um veículo com placa: ABC1234", exception.getMessage());
 
         verify(vehicleRepository, times(1)).existsByLicensePlate("ABC1234");
         verify(customerRepository, never()).findById(anyLong());

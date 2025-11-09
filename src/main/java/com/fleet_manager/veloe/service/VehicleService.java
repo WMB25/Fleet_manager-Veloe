@@ -58,7 +58,7 @@ public class VehicleService {
     }
 
     public Vehicle updateVehicle(@NotNull Long id, @NotNull VehicleRequest request) {
-        Vehicle existingVehicle = vehicleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("veículo não encontrado com esta ID: " + id));
+        Vehicle existingVehicle = vehicleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("veículo não encontrado com ID: " + id));
 
         if(!existingVehicle.getLicensePlate().equals(request.getLicensePlate()) && vehicleRepository.existsByLicensePlate(request.getLicensePlate())){
             throw new IllegalArgumentException("Já existe um veículo cadastrado com a placa: " + request.getLicensePlate());
