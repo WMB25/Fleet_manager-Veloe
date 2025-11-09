@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: fleet_manager-Veloe
+    container_name: fleet_manager_Veloe
 
     build:
       context: .
@@ -20,9 +20,9 @@ services:
       - fleetnet
 
   db:
-    image: postgres:15
+    image: postgres:15-alpine
 
-    container_name: postgres-fleet
+    container_name: postgres_fleet
 
     restart: always
 

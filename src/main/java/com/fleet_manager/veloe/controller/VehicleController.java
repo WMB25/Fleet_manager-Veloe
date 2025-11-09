@@ -44,9 +44,9 @@ public class VehicleController {
         return vehicle.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/cliente/{ownerId}")
-    public List<Vehicle> getVehicleByOwner(@PathVariable Long ownerId){
-        return vehicleService.findByOwnerId(ownerId);
+    @GetMapping("/cliente/{customerId}")
+    public List<Vehicle> getVehicleByCustomer(@PathVariable Long customerId){
+        return vehicleService.findByCustomerId(customerId);
     }
 
     @PutMapping("/{id}")
@@ -54,8 +54,10 @@ public class VehicleController {
         try{
             Vehicle vehicle = vehicleService.updateVehicle(id, request);
             return ResponseEntity.ok(vehicle);
-        } catch (Exception e){
+        } catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno no servidor");
         }
     }
 
@@ -69,9 +71,9 @@ public class VehicleController {
         }
     }
 
-    @GetMapping("/cliente/{ownerId}/count")
-    public ResponseEntity<Long> countVehicleByOwner(@PathVariable Long ownerId){
-        Long count = vehicleService.countVehicleByOwner(ownerId);
+    @GetMapping("/cliente/{customerId}/count")
+    public ResponseEntity<Long> countVehicleByCustomer(@PathVariable Long customerId){
+        Long count = vehicleService.countVehicleByCustomer(customerId);
         return ResponseEntity.ok(count);
     }
 }

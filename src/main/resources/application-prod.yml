@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/fleetdb
+    url: jdbc:postgresql://db:5432/fleetdb
     username: Admin
     password: Admin
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgresDialect
+    database-platform: org.hibernate.dialect.PostgresSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
 
   sql:

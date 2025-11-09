@@ -13,13 +13,13 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     Optional<Vehicle> findByLicensePlate(String licensePlate);
 
-    List<Vehicle> findByOwnerId(Long ownerId);
+    List<Vehicle> findByCustomerId(Long customerId);
 
     boolean existsByLicensePlate(String licensePlate);
 
-    @Query("SELECT v FROM Vehicle v WHERE v.owner.id = :customerId")
+    @Query("SELECT v FROM Vehicle v WHERE v.customer.id = :customerId")
     List<Vehicle> findVehiclesByCustomer(@Param("customerId") Long customerId);
 
-    @Query("SELECT COUNT(v) FROM Vehicle v WHERE v.owner.id = :customerId")
+    @Query("SELECT COUNT(v) FROM Vehicle v WHERE v.customer.id = :customerId")
     Long countByCustomerId(@Param("customerId") Long customerId);
 }

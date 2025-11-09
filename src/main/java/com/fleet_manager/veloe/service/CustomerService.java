@@ -3,7 +3,7 @@ package com.fleet_manager.veloe.service;
 import com.fleet_manager.veloe.model.Customer;
 import com.fleet_manager.veloe.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,12 +16,12 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Customer createCustomer(Customer owner){
-        if(customerRepository.existsByDocument(owner.getDocument())){
-            throw new IllegalArgumentException("Cliente já cadastrado com este documento: " + owner.getDocument());
+    public Customer createCustomer(@NotNull Customer customer){
+        if(customerRepository.existsByDocument(customer.getDocument())){
+            throw new IllegalArgumentException("Cliente já cadastrado com documento: " + customer.getDocument());
         }
 
-        return customerRepository.save(owner);
+        return customerRepository.save(customer);
     }
 
     @Transactional
@@ -40,23 +40,23 @@ public class CustomerService {
     }
 
     public Customer updateCustomer(Long id, @NotNull Customer customerDetails){
-        Customer owner = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
 
-        if(!owner.getDocument().equals(customerDetails.getDocument()) && customerRepository.existsByDocument(customerDetails.getDocument())){
-            throw new IllegalArgumentException("Já existe um cliente cadastrado co este documento: " + customerDetails.getDocument());
+        if(!customer.getDocument().equals(customerDetails.getDocument()) && customerRepository.existsByDocument(customerDetails.getDocument())){
+            throw new IllegalArgumentException("Já existe um cliente cadastrado com documento: " + customerDetails.getDocument());
         }
 
-        owner.setName(customerDetails.getName());
-        owner.setDocument(customerDetails.getDocument());
-        owner.setEmail(customerDetails.getEmail());
-        owner.setPhone(customerDetails.getPhone());
+        customer.setName(customerDetails.getName());
+        customer.setDocument(customerDetails.getDocument());
+        customer.setEmail(customerDetails.getEmail());
+        customer.setPhone(customerDetails.getPhone());
 
-        return customerRepository.save(owner);
+        return customerRepository.save(customer);
     }
 
     public void deleteCustomer(Long id) {
         if(!customerRepository.existsById(id)){
-            throw new IllegalArgumentException("Cliente não encontrado como ID: " + id);
+            throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
         }
         customerRepository.deleteById(id);
     }
