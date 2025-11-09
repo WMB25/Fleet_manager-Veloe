@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class VehicleServiceTest {
+class VehicleServiceTest {
 
     @Mock
     private VehicleRepository vehicleRepository;
@@ -35,20 +35,19 @@ public class VehicleServiceTest {
 
     @Test
     void shouldCreateVehicleSuccesfully(){
-        // Configuração do Request e das Entidades
         VehicleRequest request = new VehicleRequest();
         request.setBrand("Toyota");
         request.setModel("Corolla");
         request.setLicensePlate("ABC1234");
         request.setType(VehicleType.CAR);
-        request.setCustomeID(1L);
+        request.setCustomerId(1L);
 
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setName("João Silva");
 
         Vehicle expectedVehicle = new Vehicle();
-        expectedVehicle.setCustome(customer);
+        expectedVehicle.setCustomer(customer);
         expectedVehicle.setLicensePlate("ABC1234");
         expectedVehicle.setBrand("Toyota");
         expectedVehicle.setModel("Corolla");
@@ -62,7 +61,7 @@ public class VehicleServiceTest {
 
         assertNotNull(result);
         assertEquals("ABC1234", result.getLicensePlate());
-        assertEquals(customer.getName(), result.getCustome().getName());
+        assertEquals(customer.getName(), result.getCustomer().getName());
 
         verify(vehicleRepository, times(1)).existsByLicensePlate("ABC1234");
         verify(customerRepository, times(1)).findById(1L);
@@ -73,7 +72,7 @@ public class VehicleServiceTest {
     void shouldThrowExceptionWhenLicensePlateExists(){
         VehicleRequest request = new VehicleRequest();
         request.setLicensePlate("ABC1234");
-        request.setCustomeID(1L);
+        request.setCustomerId(1L);
 
         when(vehicleRepository.existsByLicensePlate("ABC1234")).thenReturn(true);
 
@@ -115,19 +114,18 @@ public class VehicleServiceTest {
         verify(vehicleRepository, times(1)).findById(1L);
     }
 
-    // Teste Adicional para Cobrir a Exceção de Cliente Não Encontrado
     @Test
     void shouldThrowExceptionWhenCustomeNotFound(){
         VehicleRequest request = new VehicleRequest();
         request.setLicensePlate("XYZ9876");
-        request.setCustomeID(99L); // ID que não existe
+        request.setCustomerId(99L);
 
         when(vehicleRepository.existsByLicensePlate(anyString())).thenReturn(false);
         when(customerRepository.findById(99L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> vehicleService.createVehicle(request));
 
-        assertEquals("Cliente não encontrado com este documento: 99", exception.getMessage());
+        assertEquals("Cliente não encontrado com documento: 99", exception.getMessage());
 
         verify(vehicleRepository, times(1)).existsByLicensePlate("XYZ9876");
         verify(customerRepository, times(1)).findById(99L);
