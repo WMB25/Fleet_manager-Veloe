@@ -8,7 +8,7 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ class VehicleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private VehicleService vehicleService;
 
     @Autowired
@@ -37,7 +37,7 @@ class VehicleControllerTest {
         request.setModel("Corolla");
         request.setLicensePlate("ABC1234");
         request.setType(VehicleType.CAR);
-        request.setCustomeID(1L);
+        request.setCustomerId(1L);
 
         Vehicle response = new Vehicle();
         response.setId(1L);
