@@ -16,21 +16,6 @@ jobs:
     name: Build e Testes
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: Admin
-          POSTGRES_PASSWORD: Admin
-          POSTGRES_DB: fleetdb
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U Admin -d fleetdb"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -46,10 +31,6 @@ jobs:
         run: mvn clean compile -DskipTests
 
       - name: Executar testes
-        env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/fleetdb
-          SPRING_DATASOURCE_USERNAME: Admin
-          SPRING_DATASOURCE_PASSWORD: Admin
         run: mvn test
 
   sonar:
